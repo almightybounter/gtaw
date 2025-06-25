@@ -98,6 +98,33 @@ Route::get('/test-db', function () {
     }
 })->name('test-db');
 
+// Database connection info for debugging deployment
+Route::get('/db-debug', function () {
+    try {
+        $output = '<h1>Database Configuration Debug</h1>';
+        $output .= '<p><strong>DB_CONNECTION:</strong> ' . config('database.default') . '</p>';
+        $output .= '<p><strong>DB_HOST:</strong> ' . config('database.connections.mysql.host') . '</p>';
+        $output .= '<p><strong>DB_PORT:</strong> ' . config('database.connections.mysql.port') . '</p>';
+        $output .= '<p><strong>DB_DATABASE:</strong> ' . config('database.connections.mysql.database') . '</p>';
+        $output .= '<p><strong>DB_USERNAME:</strong> ' . config('database.connections.mysql.username') . '</p>';
+        $output .= '<p><strong>Environment:</strong> ' . app()->environment() . '</p>';
+        
+        // Test if we can even create a connection
+        try {
+            $connection = DB::connection();
+            $pdo = $connection->getPdo();
+            $output .= '<p><strong>✅ Connection object created successfully</strong></p>';
+        } catch (Exception $e) {
+            $output .= '<p><strong>❌ Connection failed:</strong> ' . $e->getMessage() . '</p>';
+        }
+        
+        return $output;
+        
+    } catch (Exception $e) {
+        return '<h1>❌ Debug Error</h1><p><strong>Error:</strong> ' . $e->getMessage() . '</p>';
+    }
+})->name('db-debug');
+
 // Database inspection routes
 Route::get('/db-info', function () {
     try {
