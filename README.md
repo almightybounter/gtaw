@@ -13,7 +13,7 @@ A clean and secure notes management application built with Laravel. GTAW allows 
 ## Technology Stack
 
 - **Framework**: Laravel 10.x
-- **Database**: SQLite (production-ready)
+- **Database**: MySQL (Laravel Cloud)
 - **Frontend**: Blade templates with Tailwind CSS
 - **Authentication**: Laravel Breeze
 - **Testing**: Pest PHP testing framework
