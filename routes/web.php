@@ -9,6 +9,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Simple test route to verify Laravel is working
+Route::get('/test', function () {
+    return '<h1>Laravel is working!</h1><p>If you see this, the problem is likely with the welcome view or assets.</p>';
+})->name('test');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
