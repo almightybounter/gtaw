@@ -59,6 +59,45 @@ Route::get('/test-view', function () {
     }
 })->name('test-view');
 
+// Test MySQL database connection
+Route::get('/test-db', function () {
+    try {
+        $connection = DB::connection();
+        $pdo = $connection->getPdo();
+        
+        $output = '<h1>MySQL Database Connection Test</h1>';
+        $output .= '<p><strong>✅ Connection successful!</strong></p>';
+        $output .= '<p><strong>Database Type:</strong> ' . $connection->getDriverName() . '</p>';
+        $output .= '<p><strong>Database Name:</strong> ' . $connection->getDatabaseName() . '</p>';
+        $output .= '<p><strong>Host:</strong> ' . config('database.connections.mysql.host') . '</p>';
+        $output .= '<p><strong>Port:</strong> ' . config('database.connections.mysql.port') . '</p>';
+        
+        // Test a simple query
+        $result = DB::select('SELECT VERSION() as version');
+        $output .= '<p><strong>MySQL Version:</strong> ' . $result[0]->version . '</p>';
+        
+        // Check if our tables exist
+        $tables = DB::select('SHOW TABLES');
+        $output .= '<p><strong>Tables found:</strong> ' . count($tables) . '</p>';
+        
+        if (count($tables) > 0) {
+            $output .= '<ul>';
+            foreach ($tables as $table) {
+                $tableName = array_values((array)$table)[0];
+                $output .= '<li>' . $tableName . '</li>';
+            }
+            $output .= '</ul>';
+        } else {
+            $output .= '<p><em>No tables found. You may need to run migrations.</em></p>';
+        }
+        
+        return $output;
+        
+    } catch (Exception $e) {
+        return '<h1>❌ Database Connection Failed</h1><p><strong>Error:</strong> ' . $e->getMessage() . '</p><p><strong>File:</strong> ' . $e->getFile() . '</p><p><strong>Line:</strong> ' . $e->getLine() . '</p>';
+    }
+})->name('test-db');
+
 // Database inspection routes
 Route::get('/db-info', function () {
     try {
