@@ -3,61 +3,47 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'GTAW') }} - Secure Personal Notes</title>
+    <title>GTAW - Where Your Thoughts Live</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Figtree', 'ui-sans-serif', 'system-ui']
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui']
                     }
                 }
             }
         }
     </script>
     <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        body {
+            background: linear-gradient(180deg, #fdfbfb 0%, #f7f5f3 100%);
         }
-        .feature-card {
-            transition: all 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-4px);
+        .handwriting {
+            font-family: 'Caveat', cursive;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="h-full bg-gray-50 dark:bg-gray-900">
-    <!-- Navigation -->
-    <nav class="bg-white dark:bg-gray-800 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-                            📝 GTAW Notes
-                        </h1>
-                    </div>
+<body class="min-h-full">
+    <!-- Simple Navigation -->
+    <nav class="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">✏️</span>
+                    <span class="text-xl font-semibold text-gray-800">GTAW</span>
                 </div>
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-6">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                            Dashboard
-                        </a>
-                        <a href="{{ route('notes.index') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                            My Notes
-                        </a>
+                        <a href="{{ route('notes.index') }}" class="text-gray-600 hover:text-gray-900">My Notes</a>
+                        <a href="{{ route('dashboard') }}" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                            Sign In
-                        </a>
-                        <a href="{{ route('register') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                            Get Started
-                        </a>
+                        <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900">Sign In</a>
+                        <a href="{{ route('register') }}" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">Start Writing</a>
                     @endauth
                 </div>
             </div>
@@ -65,293 +51,154 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="gradient-bg">
-        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white">
-                    Your Ideas, <span class="text-yellow-300">Secured</span>
-                </h1>
-                <p class="mt-6 max-w-2xl mx-auto text-xl text-gray-100">
-                    Professional-grade note-taking application built with Laravel 9. 
-                    Create, organize, and secure your thoughts with enterprise-level security.
-                </p>
-                <div class="mt-10 flex justify-center space-x-4">
-                    @guest
-                        <a href="{{ route('register') }}" class="bg-white text-indigo-600 hover:bg-gray-50 px-8 py-3 rounded-lg text-lg font-semibold shadow-lg transition duration-300">
-                            🚀 Start Taking Notes
-                        </a>
-                        <a href="{{ route('login') }}" class="border-2 border-white text-white hover:bg-white hover:text-indigo-600 px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
-                            Sign In
-                        </a>
-                    @else
-                        <a href="{{ route('notes.index') }}" class="bg-white text-indigo-600 hover:bg-gray-50 px-8 py-3 rounded-lg text-lg font-semibold shadow-lg transition duration-300">
-                            📝 View My Notes
-                        </a>
-                        <a href="{{ route('notes.create') }}" class="border-2 border-white text-white hover:bg-white hover:text-indigo-600 px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
-                            ➕ Create Note
-                        </a>
-                    @endguest
+    <section class="max-w-6xl mx-auto px-6 py-16">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                Finally, a place for your 
+                <span class="handwriting text-blue-600 text-6xl md:text-7xl">thoughts</span>
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                We all have ideas floating around in our heads. GTAW gives them a home. 
+                Simple, secure, and actually pleasant to use.
+            </p>
+            @guest
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="{{ route('register') }}" class="bg-gray-900 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition text-lg">
+                        Start writing for free
+                    </a>
+                    <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900 underline">
+                        Already have an account?
+                    </a>
                 </div>
-            </div>
+            @else
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="{{ route('notes.create') }}" class="bg-gray-900 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition text-lg">
+                        Write something new
+                    </a>
+                    <a href="{{ route('notes.index') }}" class="text-gray-600 hover:text-gray-900 underline">
+                        See your notes ({{ auth()->user()->notes()->count() }})
+                    </a>
+                </div>
+            @endguest
         </div>
-    </div>
+    </section>
 
-    <!-- Stats Section -->
-    @auth
-    <div class="bg-gray-800 dark:bg-gray-700">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
+    <!-- What Makes It Different -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Why people actually use GTAW</h2>
+            <p class="text-gray-600">No fluff. Just the stuff that actually matters.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
             <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-white mb-8">Your Note Statistics</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-yellow-400">{{ auth()->user()->notes()->count() }}</div>
-                        <div class="text-gray-300">Total Notes</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-green-400">{{ auth()->user()->notes()->whereMonth('created_at', now()->month)->count() }}</div>
-                        <div class="text-gray-300">This Month</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-blue-400">{{ auth()->user()->notes()->whereDate('created_at', today())->count() }}</div>
-                        <div class="text-gray-300">Today</div>
-                    </div>
+                <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl">🔒</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Your stuff stays yours</h3>
+                <p class="text-gray-600">
+                    No one can see your notes but you. We don't read them, sell them, or do anything weird with them.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl">⚡</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Actually fast</h3>
+                <p class="text-gray-600">
+                    No waiting around. Click, type, save. Done. Your thoughts move as fast as you do.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl">🎯</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Just notes. That's it.</h3>
+                <p class="text-gray-600">
+                    No social features, no AI suggestions, no distractions. Write your thoughts and find them later.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real Talk Section -->
+    <section class="bg-white border-t border-b border-gray-200 py-16">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Real talk</h2>
+                <div class="text-lg text-gray-700 space-y-4 text-left max-w-2xl mx-auto">
+                    <p>
+                        Look, there are a million note-taking apps out there. Most of them are either too complicated, 
+                        too expensive, or trying to do everything for everyone.
+                    </p>
+                    <p>
+                        GTAW isn't revolutionary. It's just a place to write stuff down and find it later. 
+                        Sometimes that's exactly what you need.
+                    </p>
+                    <p>
+                        It's free, it works, and it gets out of your way. That's the whole pitch.
+                    </p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Simple Stats -->
+    @auth
+    <section class="max-w-6xl mx-auto px-6 py-16">
+        <div class="bg-gray-900 rounded-2xl p-8 text-white text-center">
+            <h3 class="text-2xl font-semibold mb-6">Your writing so far</h3>
+            <div class="grid grid-cols-3 gap-8">
+                <div>
+                    <div class="text-3xl font-bold text-blue-400">{{ auth()->user()->notes()->count() }}</div>
+                    <div class="text-gray-400">notes written</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-green-400">{{ auth()->user()->notes()->whereMonth('created_at', now()->month)->count() }}</div>
+                    <div class="text-gray-400">this month</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-purple-400">{{ auth()->user()->created_at->diffForHumans() }}</div>
+                    <div class="text-gray-400">member since</div>
+                </div>
+            </div>
+        </div>
+    </section>
     @endauth
 
-    <!-- Features Section -->
-    <div class="py-16 bg-white dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
-                    ✨ Powerful Features
-                </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-400 mb-12">
-                    Everything you need for professional note management
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Security Feature -->
-                <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                    <div class="text-4xl mb-4">🛡️</div>
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Enterprise Security</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        Bank-level security with CSRF protection, encrypted passwords, and user authorization. Your notes are safe.
-                    </p>
-                </div>
-
-                <!-- CRUD Feature -->
-                <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                    <div class="text-4xl mb-4">📋</div>
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Full CRUD Operations</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        Create, read, update, and delete notes with intuitive interface. Complete note management at your fingertips.
-                    </p>
-                </div>
-
-                <!-- Search Feature -->
-                <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                    <div class="text-4xl mb-4">🔍</div>
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Smart Search</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        Find your notes instantly by searching through titles and content. Never lose a thought again.
-                    </p>
-                </div>
-
-                <!-- Performance Feature -->
-                <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                    <div class="text-4xl mb-4">⚡</div>
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Lightning Fast</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        Optimized database queries, pagination, and caching. Built for performance with Laravel 9.
-                    </p>
-                </div>
-
-                <!-- Logging Feature -->
-                <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                    <div class="text-4xl mb-4">📊</div>
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Activity Tracking</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        Complete audit trail with custom logging. Track all note operations with timestamps and user data.
-                    </p>
-                </div>
-
-                <!-- Dark Mode Feature -->
-                <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                    <div class="text-4xl mb-4">🌙</div>
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Dark Mode Ready</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        Beautiful interface that adapts to your preference. Easy on the eyes, day or night.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tech Stack Section -->
-    <div class="bg-gray-50 dark:bg-gray-800 py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
-                    🏗️ Built with Modern Technology
-                </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-400 mb-12">
-                    Professional-grade architecture following industry best practices
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="bg-red-100 dark:bg-red-900 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                        <span class="text-2xl">🐘</span>
-                    </div>
-                    <h3 class="font-semibold text-gray-900 dark:text-white">Laravel 9</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Modern PHP framework</p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                        <span class="text-2xl">🔒</span>
-                    </div>
-                    <h3 class="font-semibold text-gray-900 dark:text-white">Laravel Breeze</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Authentication system</p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-green-100 dark:bg-green-900 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                        <span class="text-2xl">🧪</span>
-                    </div>
-                    <h3 class="font-semibold text-gray-900 dark:text-white">Pest Testing</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Modern testing framework</p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-purple-100 dark:bg-purple-900 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                        <span class="text-2xl">💎</span>
-                    </div>
-                    <h3 class="font-semibold text-gray-900 dark:text-white">PSR-12</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Coding standards</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Code Quality Section -->
-    <div class="bg-white dark:bg-gray-900 py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-12">
-                    🎯 Enterprise-Grade Code Quality
-                </h2>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Architecture Excellence</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3">✅</span>
-                            <span class="text-gray-700 dark:text-gray-300"><strong>MVC Pattern:</strong> Thin controllers, business logic in services</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3">✅</span>
-                            <span class="text-gray-700 dark:text-gray-300"><strong>Type Safety:</strong> PHP 8.0+ type hints throughout</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3">✅</span>
-                            <span class="text-gray-700 dark:text-gray-300"><strong>Validation:</strong> FormRequest classes for security</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3">✅</span>
-                            <span class="text-gray-700 dark:text-gray-300"><strong>Database:</strong> Indexed foreign keys, optimized queries</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Security First</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3">🛡️</span>
-                            <span class="text-gray-700 dark:text-gray-300"><strong>CSRF Protection:</strong> All forms secured</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3">🛡️</span>
-                            <span class="text-gray-700 dark:text-gray-300"><strong>Authorization:</strong> Users access only their data</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3">🛡️</span>
-                            <span class="text-gray-700 dark:text-gray-300"><strong>SQL Injection:</strong> Protected with Eloquent ORM</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3">🛡️</span>
-                            <span class="text-gray-700 dark:text-gray-300"><strong>Mass Assignment:</strong> Protected with fillable arrays</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- CTA Section -->
-    <div class="gradient-bg">
-        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6">
-                    Ready to Start Taking Notes?
-                </h2>
-                <p class="text-xl text-gray-100 mb-10 max-w-2xl mx-auto">
-                    Join thousands of users who trust GTAW for their note-taking needs. 
-                    Your ideas deserve the best protection and organization.
-                </p>
-                @guest
-                    <div class="flex justify-center space-x-4">
-                        <a href="{{ route('register') }}" class="bg-white text-indigo-600 hover:bg-gray-50 px-8 py-3 rounded-lg text-lg font-semibold shadow-lg transition duration-300">
-                            🚀 Create Free Account
-                        </a>
-                        <a href="{{ route('login') }}" class="border-2 border-white text-white hover:bg-white hover:text-indigo-600 px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
-                            Sign In Now
-                        </a>
-                    </div>
-                @else
-                    <div class="flex justify-center space-x-4">
-                        <a href="{{ route('notes.create') }}" class="bg-white text-indigo-600 hover:bg-gray-50 px-8 py-3 rounded-lg text-lg font-semibold shadow-lg transition duration-300">
-                            ✨ Create Your First Note
-                        </a>
-                        <a href="{{ route('notes.index') }}" class="border-2 border-white text-white hover:bg-white hover:text-indigo-600 px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
-                            📝 View All Notes
-                        </a>
-                    </div>
-                @endguest
-            </div>
-        </div>
-    </div>
+    <!-- Get Started -->
+    <section class="max-w-6xl mx-auto px-6 py-16 text-center">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">Ready to give it a try?</h2>
+        <p class="text-xl text-gray-600 mb-8">
+            It takes about 30 seconds to sign up. No credit card, no commitment.
+        </p>
+        @guest
+            <a href="{{ route('register') }}" class="inline-block bg-gray-900 text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition text-lg">
+                Start writing →
+            </a>
+        @else
+            <a href="{{ route('notes.create') }}" class="inline-block bg-gray-900 text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition text-lg">
+                Write your next note →
+            </a>
+        @endguest
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <p class="text-gray-400">
-                    &copy; {{ date('Y') }} GTAW Notes. Built with ❤️ using Laravel {{ app()->version() }}, PHP {{ PHP_VERSION }}, and Laravel Breeze.
-                </p>
-                <p class="text-gray-500 mt-2 text-sm">
-                    Professional-grade note-taking application with enterprise security and modern architecture.
-                </p>
+    <footer class="border-t border-gray-200 bg-white mt-16">
+        <div class="max-w-6xl mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <span class="text-xl">✏️</span>
+                    <span class="font-semibold text-gray-800">GTAW</span>
+                    <span class="text-gray-500">• A simple place for your thoughts</span>
+                </div>
+                <div class="text-sm text-gray-500">
+                    Made with Laravel {{ app()->version() }} • {{ date('Y') }}
+                </div>
             </div>
         </div>
     </footer>
-
-    <!-- Dark Mode Toggle Script -->
-    <script>
-        // Simple dark mode toggle (can be enhanced)
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    </script>
 </body>
 </html> 

@@ -6,6 +6,15 @@ use App\Models\Note;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * Note Factory - FOR TESTING PURPOSES ONLY
+ * 
+ * This factory is used to generate test data during development and testing.
+ * It is NOT used in production deployments.
+ * 
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Note>
+ */
+
 class NoteFactory extends Factory
 {
     protected $model = Note::class;

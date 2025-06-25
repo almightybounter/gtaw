@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+/**
+ * User Factory - FOR TESTING PURPOSES ONLY
+ * 
+ * This factory is used to generate test data during development and testing.
+ * It is NOT used in production deployments.
+ * 
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ */
 class UserFactory extends Factory
 {
     protected $model = User::class;
