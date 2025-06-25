@@ -1,0 +1,52 @@
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+/.cursor
+/composer.phar
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*~
+*.swp
+*.swo
+
+# Log files
+/storage/logs/*.log
+
+# Session files
+/storage/framework/sessions/*
+
+# Cache files
+/storage/framework/cache/data/*
+/storage/framework/views/*
+
+# Testing
+/coverage
+/.phpunit.cache
+
+# Local development
+/public/mix-manifest.json
+/public/js/app.js
+/public/css/app.css 
